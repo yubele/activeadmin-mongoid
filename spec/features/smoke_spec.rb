@@ -13,11 +13,13 @@ describe 'browse the test app' do
   before { visit '/admin' }
 
   it 'does something' do
+    I18n.backend.reload! # this is needed in travis, reason: unknown
     I18n.t('active_admin.devise.login.submit').should eq('Login')
 
     # Auth
     fill_in 'Email', with: email
     fill_in 'Password', with: password
+    p page.body
     click_on 'Login'
 
     # New
